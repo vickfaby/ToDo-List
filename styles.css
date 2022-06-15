@@ -226,8 +226,8 @@ section .sheetsContainer {
     height: 100%;
     padding: 0.3rem 0.3rem;
     border: 1px solid var(--fondo);
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
     border-bottom: 0;
     margin: 0 0.5rem;
     margin-bottom: -1rem;
