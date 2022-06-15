@@ -315,7 +315,7 @@ section .sheetsContainer {
 }
 section .sheets {
     padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-    border: 1px solid #DDDDDD;
+    border: 0px solid #DDDDDD;
     background-color: var(--white);
     box-shadow: 5px 5px 10px #000000, -5px -5px 10px #bfbfbf;
     border-radius: 0.5rem;
