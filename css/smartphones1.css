@@ -1,0 +1,25 @@
+:root {
+    --fondo: #C4DDFF;
+    --fuenteColor: #7FB5FF;
+    --bordes: #001D6E;
+    --fondoContenerdor: #FFEEEE;
+    --white: #FFFFFF;
+    --fondoGeneral: linear-gradient(207.8deg, #d1f8ff 16.69%, #ffffff 100%);
+    --fuente: 'Poppins', sans-serif;
+}
+section .sheetsContainer {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--fondo);
+    display: grid;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    grid-template-rows: 9rem 9rem;
+    grid-template-columns: repeat(auto-fill, 
+    minmax(6rem, 7rem));
+    grid-auto-rows: 8rem;
+    grid-auto-columns: 6rem;
+    gap: 1rem;
+    justify-content: space-evenly;
+    grid-area: h1;
+}

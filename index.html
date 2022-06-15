@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./css/smartphones1.css" media="(min-width: 450px)">
+    <link rel="stylesheet" href="./css/smartphones2.css" media="(min-width: 600px)">
+    <link rel="stylesheet" href="./css/smartphones3.css" media="(min-width: 800px)">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <header>
+        <div class="logo"><p>ToDo List</p></div>
+        <input type="text" class="search">
+        <div class="option">Menú</div>
+    </header>
+    <main>
+        <div class="wallpapper">
+            <picture>
+                <img src="https://images.pexels.com/photos/1666021/pexels-photo-1666021.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" 
+                alt="una imagen con pinos y montañas">
+            </picture>
+        </div>
+        <section>
+            <div id="superSheetBackground">
+            </div>
+            <div class="superSheet" id="superSheet">
+                <div class="navSuperSheet">
+                    <div id="colorPickerContainer">
+                        <input type="color" id="colorPickerSuperSheet"  value="#e66465">
+                    </div>
+                    <div id="cancelNote"><img src="./icons/icons8-cancel.svg" alt=""></div> <!-- editar nota -->
+                    <div id="okNote"><img src="./icons/check.svg" alt=""></div> <!-- seleccciona nota -->
+                    
+                </div>
+                <div class="superSheetContent">
+                    <input type="text" id="inputTittle">
+                    <textarea name="textarea"  id="inputContent"   cols="30" rows="10"></textarea>
+                    <div class="addCategory" id="categorySelector">
+                        <p>Donde añadimos tu nota?</p>
+                        <input list="lista" id="inputList">
+                        <datalist id="lista">
+                            <option value="Crear nueva categoría" id="optionValue_0"></option>
+                        </datalist>
+                        <img src="./icons/check.svg" alt="" id = "addCategoryOk">
+                    </div>
+                    <div class="addCategory" id="categoryCreator">
+                        <p>Crear nueva categoría</p>
+                        <input type="text" id="inputCategoryName">
+                        <img src="./icons/icons8-cancel.svg" alt="" id="cancelNewCategory">
+                        <img src="./icons/check.svg" alt="" id="checkNewCategory">
+                    </div>
+                </div>
+            </div> 
+            <nav class="options">
+                <div id="cancel"><img src="./icons/icons8-cancel.svg" alt=""></div> <!-- eliminar nota -->
+                <!-- <div id="ok"><img src="./icons/icons8-check-circle.svg" alt=""></div>--> <!-- eliminar nota -->
+                <div id="select" class="select"><img src="./icons/icons8-tick-box.svg" alt=""></div> <!-- select nota -->
+                <div id="add"><img src="./icons/add.svg" alt=""></div> <!-- agregar nota -->
+                <!--<div id="config"><img src="./icons/icons8-settings.svg" alt=""></div> --><!-- agregar nota -->
+                <div id="trash">
+                    <p>Eliminar nota</p>
+                    <img src="./icons/trash.svg" alt=""></div> <!-- eliminar nota -->
+                <div id="trashCategory">
+                    <p>Eliminar categoría</p>
+                    <img src="./icons/trash.svg" alt="">
+                </div>
+            </nav>
+            <div class="sidebar" id = "sidebar">
+                <h3>Categorías</h3>    
+                <!-- <div class="categoryName">
+                    <p>Trabajo</p>
+                </div> -->
+            </div>
+            <div class="sheetsContainer" id="sheetsContainer">
+                <!-- <div class="sheets" id="sheet1">
+                    <h4>Tareas</h4>
+                    <input type="checkbox" name="" id="" class="checkList">
+                    <p>Esta es una nota de prueba.</p>
+                    <p>18/03/2022</p>
+                </div> -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <a href="#">lista de notas</a>
+        <a href="#">Añadir nota</a>
+    </footer>
+    <script src="./main.js"></script>
+</body>
+</html>

@@ -1,0 +1,360 @@
+:root {
+    --fondo: #C4DDFF;
+    --fuenteColor: #7FB5FF;
+    --bordes: #001D6E;
+    --fondoContenerdor: #FFEEEE;
+    --white: #FFFFFF;
+    --fondoGeneral: linear-gradient(207.8deg, #d1f8ff 16.69%, #ffffff 100%);
+    --fuente: 'Poppins', sans-serif;
+    /*Thin 100
+    Thin 100 Italic
+    Light 300
+    Light 300 Italic
+    Regular 400
+    Regular 400 Italic
+    Bold 700
+    Bold 700 Italic*/
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    font-family: 62.5%;
+    height: 100%;
+    font-family: var(--fuente);
+}
+body{
+    font-size: 1rem; /*=16px*/
+    min-width: 375px;
+    height: 100%;
+}
+main {
+    height: calc( 100% - (3rem) );
+    background: var(--fondoGeneral);
+}
+header {
+    height: 50px;
+    border: 1px solid gray;
+    display: flex;
+    justify-content: space-between;
+}
+header :nth-child(1){
+    width: 100%;
+    margin: auto 0 auto 0rem;
+    text-align: left;
+    font-weight: bold;
+    color: var(--bordes);
+}
+header :nth-child(1) p::first-letter{
+    margin-left: 0.4rem;
+    color: var(--fuenteColor);
+}
+header :nth-child(2){
+    width: 100%;
+    height: 30px;
+    margin: auto 0 auto;
+    text-align: center;
+    border: 1px solid var(--fuenteColor);
+    border-radius: 15px;
+}
+header :nth-child(3){
+    margin: auto 1rem auto 0;
+    width: 100%;
+    text-align: right;
+    color: var(--bordes);
+}
+.wallpapper {
+    height: 10rem;
+}
+.wallpapper picture img {
+    object-fit: cover;
+    width: 100%;
+    height: 10rem;
+}
+section .sidebar {
+    width: 8rem;
+    padding: 1rem 0 0 1rem;
+    /*border: 1px solid gray;*/
+    grid-area: s1;
+    z-index: 2;
+}
+.sidebar .categoriesOnSidebar{
+    height: 3rem;
+    margin: auto 0;
+    border: 0.1rem solid var(--fondo);
+    border-top: 0rem;
+    border-bottom-left-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+    text-align: left;
+    align-content: center;
+    padding: 1rem 0.5rem;
+    display: grid;
+    grid-template-columns: auto 1rem;
+    grid-template-rows: 1rem;
+}
+.categoriesOnSidebar :nth-child(2){
+    height: 100%;
+    background-size: cover;
+    width: 100%;
+    src: url(./icons/icons8-cancel.svg);
+    background-image: url(./icons/icons8-cancel.svg);
+}
+.sidebar h3 {
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+.sidebar div{
+    color: var(--fuenteColor); 
+}
+.sidebar div p{
+    align-items: center;
+    display: flex;
+    text-decoration: none;
+    border: none;
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 300;
+}
+section {
+    height: calc( 100% - (10rem + 3rem));
+    border: 1px solid gray;
+    display: grid;
+    grid-template-rows: 3rem auto;
+    grid-template-columns: 8rem auto;
+    grid-template-areas:
+        "o1 o1"
+        "s1 h1";
+}
+section .options {
+    height: 3rem;
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    padding:0.3rem 0 0 8rem ;
+    grid-area: o1;
+}
+section .options div {
+    height: 100%;
+    background: #FFFFFF;
+    padding: 0.3rem 0.3rem;
+    border: 1px solid var(--fondo);
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom: 0;
+    margin: 0 0.5rem;
+    margin-bottom: -1rem;
+}
+section .options div img {
+    height: 100%;
+    object-fit: cover;
+}
+section #trashCategory {
+    display: none;
+    margin-left: auto;
+}
+section #trashCategory p {
+    margin: auto 0.5rem;
+    font-size: 0.7rem;
+}
+section #trash {
+    display: none;
+    font-size: 0.7rem;
+}
+section #trash p {
+    margin: auto 0.5rem;
+}
+#cancel, #ok ,#trash ,#select, #config {
+    display: none;
+}
+#colorContainer {
+    display: flex;
+    display: none;
+}
+#colorContainer div {
+    width: 1.5rem;
+    border-radius: 0.75rem;
+}
+#colorPicker {
+    display: none;
+}
+section .sheetsContainer {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--fondo);
+    border-radius: 0.5rem;
+    background-color: #282623;
+    display: grid;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    grid-template-rows: 8rem 8rem;
+    grid-template-columns: repeat(auto-fill, minmax(6rem,12rem) minmax(6rem,12rem));
+    grid-auto-rows: 8rem;
+    grid-auto-columns: 6rem;
+    gap: 1rem;
+    justify-content: space-evenly;
+    grid-area: h1;
+    z-index: 1;
+
+}
+#superSheetBackground {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--white);
+    z-index: 3;
+    top: 0;
+    display: none;
+    opacity: 80%;
+}
+.navSuperSheet {
+    position: absolute;
+    top: -3rem;
+    right: 0.5rem;
+    height: 3rem;
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    padding: 0.3rem 0 0 0;
+}
+.navSuperSheet #colorPickerContainer {
+    display: none;
+}
+.navSuperSheet div {
+    background-color: var(--white);
+    height: 100%;
+    padding: 0.3rem 0.3rem;
+    border: 1px solid var(--fondo);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    border-bottom: 0;
+    margin: 0 0.5rem;
+    margin-bottom: -1rem;
+}
+.navSuperSheet div img {
+    height: 100%;
+    object-fit: cover;
+}
+.superSheet {
+    display: block;
+    position: fixed;
+    height: 30rem;
+    width: 20rem;
+    top: calc( 100% - ( 50% + 15rem));
+    left: calc(100% - (50% + 10rem));
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    border: 1px solid #DDDDDD;
+    background-color: var(--white);
+    box-shadow: 3px 3px 3px #dddddd, -3px -3px 3px #ffffff;
+    border-radius: 0.5rem;
+    z-index: 4;
+    display: none;
+}
+.superSheetContent {
+    height: 100%;
+    display: grid;
+    grid-template-areas: 
+    "tittle1" 
+    "content1" 
+    "foot1"
+    "foot2";
+    grid-template-columns: 1fr;
+    grid-template-rows: 3rem auto auto auto;
+}
+.superSheetContent div {
+    padding:  0.5rem;
+}
+.superSheetContent #inputTittle {
+    font-family: var(--fuente);
+    font-size: 2rem;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--fondo);
+}
+#inputTittle:focus {
+    border: none;
+    border-bottom: 1px solid var(--fondo);
+    outline: none;
+}
+.superSheetContent #inputContent {
+    font-family: var(--fuente);
+    font-weight: 100;
+    font-size: 1.5rem;
+    width: 100%;
+    text-align: left;
+    border: none;
+}
+#inputContent:focus {
+    border: none;
+    border-bottom: 1px solid var(--fondo);
+    outline: none;
+}
+.superSheet .addCategory {
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.addCategory input {
+    width: 8rem;
+    height: 2rem;
+}
+.addCategory #inputList {
+    
+}
+.addCategory p {
+    margin: auto auto auto 0;
+    text-align: left;
+    font-size: 0.7rem;
+}
+#categoryCreator {
+    display: none;
+}
+section .sheets {
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    border: 1px solid #DDDDDD;
+    background-color: var(--white);
+    box-shadow: 5px 5px 10px #000000, -5px -5px 10px #bfbfbf;
+    border-radius: 0.5rem;
+    display: grid;
+    grid-template-areas: 
+    "n1 n2" 
+    "r1 r1" 
+    "f1 f1";
+    grid-template-columns: auto 1rem;
+    grid-template-rows: 3rem auto 1rem;
+    z-index: 4;
+}
+section .sheets h4 {
+    font-weight: 400;
+    font-size: 1rem;
+    grid-area: n1;
+}
+.checkList {
+    grid-area: n2;
+    display: none;
+}
+section .sheets p {
+    padding-top: 0.5rem;
+    font-weight: 300;
+    font-size: 0.7rem;
+    grid-area: r1;
+}
+section .sheets :nth-child(4){
+    font-style: italic;
+    bottom: 0;
+    grid-area: f1;
+}
+
+footer {
+position: absolute;
+bottom: 0;
+padding: 0.5rem;
+border: 1px solid gray;
+width: 100%;
+height: 2rem;
+text-align: right;
+}
