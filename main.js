@@ -31,7 +31,7 @@ let savedNotes =[]; // Array que almancena todas las notas creadas
 let selectedNotes = []; // Array de funcionamiento parcial
 let allCategories = []; // Array que almacenara las categorias creadas
 let saveIdNotes=[] // alamcena los id de las notas creadas
-let entradaDePrueba =0;
+let actualCategory =0;
 //CODIGO PARA REMOVER LISTENER LLAMANDO FUNCIONES CON PARAMETRO.
 Element.prototype.listenFor = function(name , callback){
     this.listenerCallback = callback;
@@ -149,8 +149,10 @@ function cancelSelection() {
         for(notes in allCategories[cates].notes){ // REACTIVAMOS LOS LISTENERS EN TODOS LOS SHEETS
             const idNote =allCategories[cates].notes[notes].id;
             const nota=document.getElementById(idNote);
-            nota.listenFor("click",()=>{showSuperNoteForEdit(idNote)});
-            console.log("SE REACTIVAN LOS LISTENERS EN TODAS LAS NOTAS");
+            if(nota){
+                console.log("SE REACTIVAN LOS LISTENERS EN TODAS LAS NOTAS");
+                nota.listenFor("click",()=>{showSuperNoteForEdit(idNote)});
+            }
         }
     }
     showAdd();
@@ -177,28 +179,31 @@ function showCheckbox(){ // MUESTRA LOS CHECKBOX
     detectSelect(); // añade listeners a los checkbox
     console.log("Abrimos selectores")
     for(categories in allCategories){
-        for( notes in allCategories[categories].notes){
-            let idNote = allCategories[categories].notes[notes].id;
-            let note = document.getElementById(idNote);
-            console.log("entramos a remover evento en nota con id: " + idNote);
-            note.stopListen("click", ()=>{}); // DETIENE EL LISTENER DE LA NOTA PARA EDITAR.
-            let checkBoxId = allCategories[categories].notes[notes].idInput; //accedemos al id de cada checkbox
-            const checkBoxOfNote= document.getElementById(checkBoxId); //accedemos al  checkbox
-            console.log("entramos a verificar el input: " + checkBoxId);
-            if(checkBoxOfNote){
-                checkBoxOfNote.style.display = "block"; //mostramos el checkbox
-                console.log("mostramos checkbox: " + checkBoxId);
-                console.log("pasasmos : " + (notes) + " veces");
-                if(checkBoxOfNote.checked){
-                    console.log("si hay checkeados");
-                    checkBoxOfNote.checked = false;// si el checkbox estaba checkeado, lo muestra desmarcado
+        if(allCategories[categories].name == actualCategory){
+            for( notes in allCategories[categories].notes){
+                let idNote = allCategories[categories].notes[notes].id;
+                let note = document.getElementById(idNote);
+                console.log("entramos a remover evento en nota con id: " + idNote);
+                note.stopListen("click", ()=>{}); // DETIENE EL LISTENER DE LA NOTA PARA EDITAR.
+                let checkBoxId = allCategories[categories].notes[notes].idInput; //accedemos al id de cada checkbox
+                const checkBoxOfNote= document.getElementById(checkBoxId); //accedemos al  checkbox
+                console.log("entramos a verificar el input: " + checkBoxId);
+                if(checkBoxOfNote){
+                    checkBoxOfNote.style.display = "block"; //mostramos el checkbox
+                    console.log("mostramos checkbox: " + checkBoxId);
+                    console.log("pasasmos : " + (notes) + " veces");
+                    if(checkBoxOfNote.checked){
+                        console.log("si hay checkeados");
+                        checkBoxOfNote.checked = false;// si el checkbox estaba checkeado, lo muestra desmarcado
+                    }
                 }
-            }
-        } 
+            } 
+        }
     }
     add.style.display = "none";
     select. style.display = "none";
     hideTrashCategory();
+    showTrash();
     showCancel();
 }
 function hideCheckbox(){ //ESCONDE LOS CHECKBOX
@@ -236,8 +241,14 @@ function showSuperNote() { //ABRE LA SUPERNOTA (para crear una nota)
     contenido.style.setProperty('font-weight', "100");
     titulo.style.setProperty('font-weight', "100");
     contenido.value = "contenido";
-    titulo.addEventListener("click",hideTittle,"true");
-    contenido.addEventListener("click",hideContent,"true");
+    titulo.addEventListener("focus",hideTittle,"true");
+    contenido.addEventListener("focus",hideContent,"true");
+
+    if(allCategories.length > 0){
+        const lista = document.getElementById("inputList");
+        lista.value = actualCategory;
+        console.log("Se le añade opcion perdeterminada a la lista");
+    }
 }
 function saveNote(){ //Guarda la nota en el Array de notas, cierra la superNota y crea la nota
     const datos= getDatos();
@@ -389,6 +400,9 @@ function showNotesByCategory(category){
     trashCategoryButton.listenFor("click", ()=>{eraseCategory(category)});
     console.log("SE AÑADE NUEVO LISTENER PARA EL TRASH EN: " + category);
     trashCategory();
+    hideCancel();
+    actualCategory = category;
+    
 }
 function quitSheetsById(id) { //Elimina notas por id
     const sheet = document.getElementById(id);
@@ -433,6 +447,10 @@ function addSheet(nota){ // crea una sola nota
     //newDiv.removeEventListener("click",function(){showSuperNoteForEdit(idNote)},false);
 }
 function showSuperNoteForEdit(idNote, categoryNote){
+        const titulo = document.querySelector("#inputTittle");
+        const contenido = document.querySelector("#inputContent");
+        titulo.removeEventListener("focus",hideTittle,"true");
+        contenido.removeEventListener("focus",hideContent,"true");
         const noteDatos = getDatosFromNoteById(idNote);
         console.log("ABRE EDICION DE LA NOTA: " + idNote);
         let noteTittle = noteDatos.tittle; // trae la informacion q tenia la nota
@@ -576,7 +594,6 @@ function hideTittle(){
         contenido.style.setProperty('font-weight', "100");
         contenido.addEventListener("click",hideContent,"true");
     }
-
 }
 function hideContent(){
     const titulo = document.querySelector("#inputTittle");
