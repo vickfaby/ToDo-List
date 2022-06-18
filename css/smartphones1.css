@@ -1,16 +1,7 @@
-:root {
-    --fondo: #C4DDFF;
-    --fuenteColor: #7FB5FF;
-    --bordes: #001D6E;
-    --fondoContenerdor: #FFEEEE;
-    --white: #FFFFFF;
-    --fondoGeneral: linear-gradient(207.8deg, #d1f8ff 16.69%, #ffffff 100%);
-    --fuente: 'Poppins', sans-serif;
-}
+
 section .sheetsContainer {
     width: 100%;
     padding: 1rem;
-    border: 1px solid var(--fondo);
     display: grid;
     overflow-y: scroll;
     scroll-behavior: smooth;

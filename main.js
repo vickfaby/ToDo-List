@@ -100,6 +100,9 @@ function colorSelector() {
 function getColorFromPicker(){
     const colorPicker = document.querySelector("#colorPickerSuperSheet").value;
     superSheet.style.backgroundColor = colorPicker;
+    document.querySelector("#cancelNote").style.backgroundColor = colorPicker;
+    document.querySelector("#okNote").style.backgroundColor = colorPicker;
+    document.querySelector("#colorPickerContainer").style.backgroundColor = colorPicker;
     document.querySelector("#inputContent").style.backgroundColor = colorPicker;
     document.querySelector("#inputTittle").style.backgroundColor = colorPicker;
     console.log("LEEMOS COLOR: " + colorPicker);
@@ -161,6 +164,7 @@ function cancelSelection() {
     hideCheckbox();
     hideCancel();
     trashCategory();
+    showNotesByCategory(actualCategory);
 }
 function detectSelect(){//AÑADE LOS LISTENERS A LOS CHECKBOX MOSTRADOS            
     for(categories in allCategories){ // colcoamos un addEventListener en cada uno de
@@ -175,6 +179,7 @@ function detectSelect(){//AÑADE LOS LISTENERS A LOS CHECKBOX MOSTRADOS
         }
     }
 }
+// ERROR AL ENTRAR SI SALIR DE SHOWCHECKBOX SE DAÑA EL COLOR PICKER
 function showCheckbox(){ // MUESTRA LOS CHECKBOX 
     detectSelect(); // añade listeners a los checkbox
     console.log("Abrimos selectores")
@@ -220,7 +225,7 @@ function hideCheckbox(){ //ESCONDE LOS CHECKBOX
     }
 }
 function showSuperNote() { //ABRE LA SUPERNOTA (para crear una nota)
-    let colorSuperNote = "#F7F7F7";
+    let colorSuperNote = "var(--colorNote)";
     console.log("ABRE INTERFAZ DE NUEVA NOTA");
     superSheetBackground.style.display = "block";
     superSheet.style.display = "block";
@@ -228,11 +233,12 @@ function showSuperNote() { //ABRE LA SUPERNOTA (para crear una nota)
     categoryCreator.style.display = "none";
     categorylist.value = "";
     okNote.style.display = "none";
+    cancelNote.style.display = colorSuperNote;
     superSheet.style.backgroundColor = colorSuperNote;
     const titulo = document.querySelector("#inputTittle");
     titulo.style.backgroundColor = colorSuperNote;
     const contenido = document.querySelector("#inputContent");
-    contenido.style.backgroundColor = colorSuperNote;
+    contenido.style.background = colorSuperNote;
     contenido.value = "contenido vacío"
     titulo.value = "Titulo vacío";
     contenido.value = "Contenido";
@@ -248,7 +254,12 @@ function showSuperNote() { //ABRE LA SUPERNOTA (para crear una nota)
         const lista = document.getElementById("inputList");
         lista.value = actualCategory;
         console.log("Se le añade opcion perdeterminada a la lista");
+        lista.addEventListener("click",hideValueList,"true");
     }
+}
+function hideValueList(){
+    const lista = document.getElementById("inputList");
+    lista.value = "";
 }
 function saveNote(){ //Guarda la nota en el Array de notas, cierra la superNota y crea la nota
     const datos= getDatos();
@@ -283,8 +294,10 @@ function closeSuperNote(){ //CANCELA LA SUPERNOTA
     superSheetBackground.style.display = "none";
     superSheet.style.display = "none";
     const colorPicker = document.querySelector("#colorPickerSuperSheet");
+    lista.removeEventListener("click",hideValueList,"true");
     colorPicker.stopListen("input",()=>{getColorFromPicker()}); // debemos cerrar los listener para evitar que se ejecuten doble.
     okNote.stopListen("click",()=>{editNote(idNote, categoryNote, getColorFromPicker())});
+    hideColorPickerInSuperSheet();
 }
 function getDatos() { //obtiene los datos escritos por el ususario en la superNota
     const tittle = document.querySelector("#inputTittle").value;
@@ -449,18 +462,27 @@ function addSheet(nota){ // crea una sola nota
 function showSuperNoteForEdit(idNote, categoryNote){
         const titulo = document.querySelector("#inputTittle");
         const contenido = document.querySelector("#inputContent");
+        const divDate =document.querySelector("#divDateSupersheet");
+        const dateSuperSheet = document.querySelector("#dateSuperSheet");
+        const colorButton = document.querySelector("#colorPickerContainer");
+        const cancelButton = document.querySelector("#cancelNote");
+        const okButton = document.querySelector("#okNote");
+        divDate.style.display = "block"
         titulo.removeEventListener("focus",hideTittle,"true");
         contenido.removeEventListener("focus",hideContent,"true");
         const noteDatos = getDatosFromNoteById(idNote);
         console.log("ABRE EDICION DE LA NOTA: " + idNote);
         let noteTittle = noteDatos.tittle; // trae la informacion q tenia la nota
         let noteContent = noteDatos.content;
+        let noteDate = noteDatos.date;
         console.log("SE MUESTRA PARA EDITAR: Titulo: " + noteTittle + " Contenido: " + noteContent);
         const superSheetTittle = document.querySelector("#inputTittle");
         const superSheetContent = document.querySelector("#inputContent");
         console.log("EL COLOR PARA EDITAR LA NOTA ES: " + noteDatos.color);
         superSheetTittle.value = noteTittle; // SE LE DA EL TITULO A LA SUPERSHEET DE EDICION
         superSheetContent.value = noteContent;
+        console.log("La fecha es: " + noteDate);
+        dateSuperSheet.textContent = noteDate;
         cancelNote.style.display = "flex";
         okNote.style.display = "flex";
         showColorPickerInSuperSheet(idNote,categoryNote);
@@ -470,6 +492,9 @@ function showSuperNoteForEdit(idNote, categoryNote){
         categoryCreator.style.display = "none";
         categorylist.value = "";
         colorSelector(idNote,categoryNote);
+        colorButton.style.backgroundColor = noteDatos.color;
+        cancelButton.style.backgroundColor = noteDatos.color;
+        okButton.style.backgroundColor = noteDatos.color;
         console.log("Se activa listener del botón check");
         okNote.listenFor("click",()=>{editNote(idNote, categoryNote, getColorFromPicker())});
 }
@@ -523,7 +548,7 @@ function showColorPickerInSuperSheet(idNote,categoryNote){
     console.log("Colorpicker inicia de color: " + color);
     const colorpickerDiv = document.getElementById("colorPickerContainer");
     const colorpicker = document.getElementById("colorPickerSuperSheet");
-    colorpickerDiv.style.display = "block";
+    colorpickerDiv.style.display = "flex";
     colorpicker.value = color;
     const superSheetTittle = document.querySelector("#inputTittle");
     const superSheetContent = document.querySelector("#inputContent");
@@ -540,8 +565,9 @@ function highlightCategoryOnSidebar(categoryName){
     for(cates in allCategories){
         let idOtherCategoryDiv = "div_" + allCategories[cates].name;
         let otherCategory =  document.getElementById(idOtherCategoryDiv);
-        otherCategory.style.backgroundColor = "white";
-        otherCategory.style.color = "#7FB5FF";
+        otherCategory.style.backgroundColor= "transparent";
+        otherCategory.style.color = "#FFFFFF";
+        otherCategory.style.border = "none";
         otherCategory.style.setProperty("width", "calc( 100% + 1px)");
     }
     let idCategoryDiv = "div_" + categoryName;
@@ -549,6 +575,8 @@ function highlightCategoryOnSidebar(categoryName){
     categoryDiv.style.backgroundColor="#2D2D2D";
     categoryDiv.style.setProperty("border-right","1px  solid #2D2D2D");
     categoryDiv.style.color="#FFFFFF";
+    categoryDiv.style.border = "1px solid var(--fondoHeaderYbotones)";
+    categoryDiv.style.borderRight = "0px";
 }
 function getDatosFromNoteById(idNote){
     let noteTittle = "";
@@ -563,7 +591,7 @@ function getDatosFromNoteById(idNote){
                 let nota = allCategories[cates].notes[notes];
                 noteTittle = nota.tittle;
                 noteContent = nota.content;
-                noteDate = nota.Date;
+                noteDate = nota.date;
                 noteIdInput = nota.idInput;
                 noteCategory = nota.category;
                 noteColor = nota.color;

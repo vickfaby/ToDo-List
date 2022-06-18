@@ -24,7 +24,9 @@
     <main>
         <div class="wallpapper">
             <picture>
-                <img src="https://images.pexels.com/photos/1666021/pexels-photo-1666021.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" 
+                <!-- <img src="https://images.pexels.com/photos/1666021/pexels-photo-1666021.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" 
+                alt="una imagen con pinos y montañas"> -->
+                <img src="https://images.pexels.com/photos/704982/pexels-photo-704982.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
                 alt="una imagen con pinos y montañas">
             </picture>
         </div>
@@ -34,14 +36,14 @@
             <div class="superSheet" id="superSheet">
                 <div class="navSuperSheet">
                     <div id="colorPickerContainer">
+                        <p>Color</p>
                         <input type="color" id="colorPickerSuperSheet"  value="#e66465">
                     </div>
                     <div id="cancelNote"><img src="./icons/icons8-cancel.svg" alt=""></div> <!-- editar nota -->
                     <div id="okNote"><img src="./icons/check.svg" alt=""></div> <!-- seleccciona nota -->
-                    
                 </div>
                 <div class="superSheetContent">
-                    <input type="text" id="inputTittle">
+                    <textarea type="text" id="inputTittle"></textarea>
                     <textarea name="textarea"  id="inputContent"   cols="30" rows="10"></textarea>
                     <div class="addCategory" id="categorySelector">
                         <p>Donde añadimos tu nota?</p>
@@ -57,6 +59,7 @@
                         <img src="./icons/icons8-cancel.svg" alt="" id="cancelNewCategory">
                         <img src="./icons/check.svg" alt="" id="checkNewCategory">
                     </div>
+                    <div id="divDateSupersheet"><p id="dateSuperSheet"></p></div>
                 </div>
             </div> 
             <nav class="options">
