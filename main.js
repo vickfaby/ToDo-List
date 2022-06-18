@@ -233,7 +233,7 @@ function showSuperNote() { //ABRE LA SUPERNOTA (para crear una nota)
     categoryCreator.style.display = "none";
     categorylist.value = "";
     okNote.style.display = "none";
-    cancelNote.style.display = colorSuperNote;
+    cancelNote.style.backgroundColor = colorSuperNote;
     superSheet.style.backgroundColor = colorSuperNote;
     const titulo = document.querySelector("#inputTittle");
     titulo.style.backgroundColor = colorSuperNote;
