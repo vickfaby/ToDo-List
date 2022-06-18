@@ -257,9 +257,9 @@ section .sheetsContainer {
     display: block;
     position: fixed;
     height: 30rem;
-    width: 80%;
-    /* top: calc( 100% - ( 50% + 15rem)); */
-    left: calc(100% - (50% + 40%));
+    width: 90%;
+    top: 3rem; 
+    left: calc(100% - (50% + 45%));
     padding: 0.6rem;
     border: 1px solid #DDDDDD;
     background-color: var(--white);
