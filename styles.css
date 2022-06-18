@@ -88,7 +88,7 @@ header :nth-child(3){
     border-top-left-radius: 0.1rem;
     text-align: left;
     align-content: center;
-    padding: 1rem 0.5rem;
+    padding: 0rem 0.5rem;
     display: grid;
     grid-template-columns: auto 1rem;
     grid-template-rows: 1rem;
