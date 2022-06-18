@@ -1,4 +1,13 @@
 
+section {
+    grid-template-columns: 10rem auto;
+}
+section .sidebar {
+    width: calc(10rem + 1px);
+}
+section .options {
+    padding:0.3rem 0 0 10rem ;
+}
 section .sheetsContainer {
     width: 100%;
     padding: 1rem;

@@ -208,7 +208,7 @@ function showCheckbox(){ // MUESTRA LOS CHECKBOX
     add.style.display = "none";
     select. style.display = "none";
     hideTrashCategory();
-    showTrash();
+    //showTrash();
     showCancel();
 }
 function hideCheckbox(){ //ESCONDE LOS CHECKBOX
@@ -637,9 +637,29 @@ function hideContent(){
         titulo.addEventListener("click",hideTittle,"true");
     }
 }
+//ERROR CUANDO SE MARCA UNA NOTA PARA BORRAR Y LUEGO SE DESMARCA
+// NO SE DESAPARECE EL TRAHS
+//HAY Q VERIFICAR QUE NO HAY MARCADOS
 function showTrash () {
-    console.log("se activa la papelera");
-    trash.style.display = "flex";
+    let counter =0;
+    for(categories in allCategories){ // colcoamos un addEventListener en cada uno de
+        for(notes in allCategories[categories].notes){
+            let checkboxId = allCategories[categories].notes[notes].idInput;
+            let checkbox = document.getElementById(checkboxId);
+            console.log("SE VERIFICA CHECKBOX: " + checkboxId);
+            if(checkbox && checkbox.checked){ //verificamos que el input exista (ya q los de otras cetegorias estan ocultos)
+                counter = counter+1;
+                console.log("NO HAY CHECKBOX MARCADOS");
+            }
+        }
+    }
+    if(counter<0){
+        console.log("SE ESCONDE TRASH")
+        hideTrash();
+    }else{
+        console.log("se activa la papelera");
+        trash.style.display = "flex";
+    }
 }
 function hideTrash () {
     trash.style.display = "none"
