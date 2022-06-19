@@ -19,6 +19,53 @@
     Bold 700
     Bold 700 Italic*/
 }
+/* .circle { transformacion con HOVER
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #FA8BFF;
+    background-image: linear-gradient(45deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);
+}
+.circle:hover {
+    transform: scale(0.8, 1.2); /* diferentes en dos ejes*/
+    /*transform: scaleX(0.8);*/
+    /*transform: scale(0.8;*/
+/*} */
+
+/* .container { //ROTATION
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border: 5px solid hotpink;
+    perspective: 100px;        
+}
+.item {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: papayawhip;
+    border: 3px solid hotpink;
+    opacity: 0.5;
+    transform-style: preserve-3d;
+    transform: rotateX(45deg);
+} */
+
+/* .box1 { //TRANSITION
+    background: lightcoral;
+    transition: transform 500ms;
+} */
+
+/* .circle:hover { //TRASLATE
+    transform: translate(20px, -20px);
+    /*transform: translateX(20px);*/
+/*} */
+
+/* .nav li:hover > ul { //delay
+    opacity: 1;
+    transition: opacity 400ms;
+    transition-delay: 300ms;
+} */
+
 *{
     margin: 0;
     padding: 0;
@@ -93,6 +140,9 @@ header :nth-child(3){
     grid-template-columns: auto 1rem;
     grid-template-rows: 1rem;
 }
+.sidebar .categoriesOnSidebar:hover {
+    transform: scale(1.05,1.05);
+}
 .sidebar :nth-child(2){
     border-top: 1px solid var(--fondoHeaderYbotones);
 }
@@ -157,6 +207,9 @@ section .options div {
     margin: 0 0.5rem;
     /* margin-bottom: -1rem; */
 }
+section .options div:hover {
+    transform: scale(1.1,1.1);
+}
 section .options div img {
     height: 100%;
     object-fit: cover;
@@ -208,6 +261,17 @@ section .sheetsContainer {
     grid-area: h1;
     z-index: 1;
 
+    animation-name: notes;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+@keyframes notes { /*ANIMACION SUPERNOTE*/
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
 }
 #superSheetBackground {
     position: absolute;
@@ -266,6 +330,19 @@ section .sheetsContainer {
     border-radius: 0.1rem;
     z-index: 4;
     display: none;
+
+    animation-name: supernote;
+    animation-duration: 0.3s;
+    animation-iteration-count: 1;
+}
+@keyframes supernote { /*ANIMACION SUPERNOTE*/
+    0% {
+        top: -20rem;
+    }
+    100% {
+        top: 3rem;
+    }
+
 }
 .superSheetContent {
     height: 100%;
@@ -342,8 +419,8 @@ section .sheetsContainer {
 section .sheets {
     padding: 0.5rem 0.5rem 0.5rem 0.5rem;
     border: 0px solid #DDDDDD;
+    box-shadow: 2px 2px 5px #000000, -2px -2px 5px #bfbfbf;
     background-color: var(--white);
-    box-shadow: 5px 5px 10px #000000, -5px -5px 10px #bfbfbf;
     border-radius: 0.3rem;
     display: grid;
     grid-template-areas: 
@@ -353,6 +430,25 @@ section .sheets {
     grid-template-columns: auto 1rem;
     grid-template-rows: 3rem auto 1rem;
     z-index: 4;
+
+    animation-name: notitas;
+    animation-duration: 0.2s;
+    animation-iteration-count: 1;
+}
+@keyframes notitas { /*ANIMACION SUPERNOTE*/
+    0% {
+        width: 0%;
+        height: 0%;
+    }
+    100% {
+        width: 100%;
+        height: 100%;
+    }
+}
+section .sheets:hover {
+    transform: scale(1.05,1.05);
+    box-shadow: 5px 5px 10px #000000, -5px -5px 10px #bfbfbf;
+    transition: transform 500ms;
 }
 section .sheets h4 {
     font-weight: 400;

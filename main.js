@@ -389,6 +389,7 @@ function createCategoryOnList(){
     hideAddCategory();
 }
 function showNotesByCategory(category){ 
+    const sheetsContainer = document.getElementById("sheetsContainer");
     highlightCategoryOnSidebar(category);
     console.log("SE MUESTRAN LAS NOTAS DE LA CATEGORÍA: " + category);
     quitSheets();
@@ -415,7 +416,8 @@ function showNotesByCategory(category){
     trashCategory();
     hideCancel();
     actualCategory = category;
-    
+    sheetsContainer.style.display="none";
+    sheetsContainer.style.display="grid"
 }
 function quitSheetsById(id) { //Elimina notas por id
     const sheet = document.getElementById(id);
