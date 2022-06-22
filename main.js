@@ -18,7 +18,10 @@ const categoryCreator = document.getElementById("categoryCreator");
 const categorySelector = document.getElementById("categorySelector");
 const checkCategory = document.getElementById("checkNewCategory");
 const cancelCategory = document.getElementById("cancelNewCategory");
-//const ok= document.getElementById("ok"); //CLOSE NOTE
+const menuButton = document.getElementById("menuButton");
+const sideMenu = document.getElementById("sideMenu");
+superSheetBackground.addEventListener("click",cancelAll,true);
+menuButton.addEventListener("click",showMenu,true);
 select.addEventListener("click",showCheckbox,true);
 add.addEventListener("click",showSuperNote,true);
 cancelNote.addEventListener("click",closeSuperNote,true);
@@ -32,6 +35,7 @@ let selectedNotes = []; // Array de funcionamiento parcial
 let allCategories = []; // Array que almacenara las categorias creadas
 let saveIdNotes=[] // alamcena los id de las notas creadas
 let actualCategory =0;
+let menuState = false;
 //CODIGO PARA REMOVER LISTENER LLAMANDO FUNCIONES CON PARAMETRO.
 Element.prototype.listenFor = function(name , callback){
     this.listenerCallback = callback;
@@ -88,6 +92,22 @@ class notasAlmacenadas { //Prototype of Note Object
     }
     changeColorNote(color){
         this.color=color;
+    }
+}
+function cancelAll(){
+    const note = document.getElementById("superSheet");
+    if(note){
+        closeSuperNote();
+    }
+    superSheetBackground.style.display="none";
+    sideMenu.style.display = "none"
+    menuState=false;
+}
+function showMenu(){
+    if(menuState == false){
+        superSheetBackground.style.display="block";
+        sideMenu.style.display = "block";
+        menuState = true;
     }
 }
 function colorSelector() {
