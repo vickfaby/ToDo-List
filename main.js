@@ -36,6 +36,87 @@ let allCategories = []; // Array que almacenara las categorias creadas
 let saveIdNotes=[] // alamcena los id de las notas creadas
 let actualCategory =0;
 let menuState = false;
+
+document.addEventListener("DOMContentLoaded",begin,true);
+
+function begin() {
+    console.log("Se ejecuta Begin");
+    let datosOfLocal = localStorage.getItem("categorias");
+    let datosTransformed = JSON.parse(datosOfLocal);
+    let categoriaActual =""
+    console.log("Estos son los datos guardados y utiles");
+    console.log(datosTransformed);
+
+    for(cate in datosTransformed){
+        
+        let categoria = datosTransformed[cate].name;
+        console.log("Se crea categoria: " + categoria);
+        for(keys in datosTransformed[cate].notes){
+            let nota = datosTransformed[cate].notes[keys]; //objeto nota
+            const datos = {
+                tittle: nota.tittle,
+                content: nota.content,
+                date: nota.date,
+                id: nota.id,
+                idInput: nota.idInput,
+                category: nota.category,
+                color: nota.color,
+            }
+            console.log("Tenemos los siguientes datos en begin")
+            console.log(datos);
+
+            if(datos.category == categoriaActual){
+                console.log("se repite categoria entonces addNote");
+                console.log("categoria leida de datos: " + datos.category)
+                console.log("categoria leida de transformado: " + datosTransformed[cate].name)
+                const note  = new notasAlmacenadas(datos); //se crea nota
+                allCategories[cate].addNote(note);
+            }else{
+                categoriaActual = datos.category; // para q se idendifique sobre q categoria estamos.
+                console.log("Como no se repite.. se crea la categoria");
+                const note  = new notasAlmacenadas(datos); //se crea nota
+                createCategory(categoria,note) // se crea categoria
+            }
+
+        }
+        console.log("SE CREAN LOS DATOS DEL LOCAL STORAGE");
+        console.log(allCategories);
+    }
+    //createCategoryInSidebar(allCategories[0].name);
+    showNotesByCategory(allCategories[0].name);
+}
+function isArray(subject) {
+    return Array.isArray(subject);
+}
+function isObject(subject) {
+    return typeof subject == "object";
+}
+function deepCopy(subject) {
+    let copySubject;
+    const subjectIsObject = isObject(subject)
+    const subjectIsArray = isArray(subject);
+    if (subjectIsArray) {
+        copySubject = [];
+    } else if (subjectIsObject) {
+        copySubject = {};
+    } else {
+        return subject;
+    }
+    for(key in subject){
+        const keyIsObject = isObject(subject[key]);
+        if(keyIsObject){ //verifica si la propiedad a copiar es un objeto
+            copySubject[key] = deepCopy(subject[key]); //analiza nuevamente cada propiedad del objeto dentro del objeto
+        }else {
+            if(subjectIsArray){ // si el objeto analizado es un Array 
+                copySubject.push(subject[key]); //se le hace push
+            } else {
+                copySubject[key] = subject[key];    //si no esArray, simplemente iguala la propiedad.
+            }
+        }
+    }
+ return copySubject; 
+}
+
 //CODIGO PARA REMOVER LISTENER LLAMANDO FUNCIONES CON PARAMETRO.
 Element.prototype.listenFor = function(name , callback){
     this.listenerCallback = callback;
@@ -160,6 +241,9 @@ console.log("BORAR NOTAS INICIADO...");
                 }
             }
         }
+        localStorage.setItem("categorias",JSON.stringify(deepCopy(allCategories))); 
+        console.log("SE ALMACENA INFORMACION EN EL STORAGE");
+        // guarda una copia profunda del allcategories
     }
     hideCheckbox();
     hideTrash();
@@ -300,6 +384,9 @@ function saveNote(){ //Guarda la nota en el Array de notas, cierra la superNota 
             }
         }
     }
+    localStorage.setItem("categorias",JSON.stringify(deepCopy(allCategories))); 
+    console.log("SE ALMACENA INFORMACION EN EL STORAGE");
+    // guarda una copia profunda del allcategories
     showNotesByCategory(categoryName); // muestra la nota creada de la categoria creada.
     console.log("se crea: " + datos["id"] + " el " + datos["date"]);
     document.getElementById("inputTittle").value = "";
@@ -363,12 +450,15 @@ function createCategory(name, nota){
     console.log("CREADA CATEGORÍA: " + name);
 }
 function createCategoryInSidebar(){
+    console.log(allCategories)
+    console.log(allCategories[allCategories.length - 1]);
     let categoryNameOriginal = allCategories[allCategories.length - 1].name;
     let categoryName = allCategories[allCategories.length - 1].name;
     const newCategoryDiv = document.createElement("div");
     newCategoryDiv.id = "div_" + categoryName;
     newCategoryDiv.className = "categoriesOnSidebar";
     const newDivName = document.createElement("p");
+    console.log("en createCategoryInSidebar: " + categoryName);
     categoryName = categoryName.charAt(0).toUpperCase() + categoryName.slice(1); // da el nombre de la categoría con la priumera letra en mayuscula
     newDivName.textContent = categoryName; //pone nombre div q contiene la categoría
     const currentDiv = document.getElementById("sidebar");
@@ -392,6 +482,9 @@ function eraseCategory(categoryName){
         quitSheets();
         hideSelect();
     }
+    localStorage.setItem("categorias",JSON.stringify(deepCopy(allCategories))); 
+    console.log("SE ALMACENA INFORMACION EN EL STORAGE");
+    // guarda una copia profunda del allcategories
     const divId = "div_" + categoryName
     const divCategory = document.getElementById(divId);
     divCategory.remove();
@@ -560,8 +653,10 @@ function editNote(idNote, categoryNote, colorOfPicker){
     showNotesByCategory(note.object.category);
     okNote.stopListen("click",()=>{editNote(idNote, categoryNote)});
     closeSuperNote();
-}// EL ERROR ESTA CUANDO ENTRO A CAM BIAR COLOR DE 
-//LA NOTA Y AL FINAL NO LO HAGO
+    localStorage.setItem("categorias",JSON.stringify(deepCopy(allCategories))); 
+    console.log("SE ACTUALIZA INFORMACION EN EL STORAGE");
+    // guarda una copia profunda del allcategories
+}
 function showColorPickerInSuperSheet(idNote,categoryNote){
     const note = noteByIdAndCategory(idNote,categoryNote);
     console.log(note);
